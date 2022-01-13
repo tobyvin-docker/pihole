@@ -22,8 +22,8 @@ services:
       - DNS2=172.31.1.3#5053
       - DNSMASQ_LISTENING=all
     volumes:
-      - ./data/pihole:/etc/pihole
-      - ./data/dnsmasq.d:/etc/dnsmasq.d
+      - ${PROJ_DIR}/data/pihole:/etc/pihole
+      - ${PROJ_DIR}/data/dnsmasq.d:/etc/dnsmasq.d
     networks:
       default:
         ipv4_address: 172.31.1.2
@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
 
   dhcp_helper:
-    build: ./dhcp_helper
+    build: ${PROJ_DIR}/dhcp_helper
     container_name: dhcp_helper
     cap_add:
       - NET_ADMIN
@@ -62,7 +62,7 @@ services:
 
 secrets:
   webpassword:
-    file: ./secrets/webpassword
+    file: ${PROJ_DIR}/secrets/webpassword
 
 networks:
   default:
