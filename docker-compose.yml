@@ -42,13 +42,16 @@ services:
       - traefik.http.routers.pihole.entrypoints=websecure
 
   unbound:
-    image: klutchell/unbound
+    image: klutchell/unbound:1.13.2
     container_name: unbound
     networks:
       default:
         ipv4_address: 172.31.1.3
     ports:
       - 5053:5053/udp
+      - 5053:5053/tcp
+    volumes:
+      - ${PROJ_DIR}/data/unbound:/etc/unbound
     restart: unless-stopped
 
   dhcp_helper:
